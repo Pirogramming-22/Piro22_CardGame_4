@@ -6,26 +6,25 @@ from django.http import JsonResponse
 from .forms import UserRegistrationForm, LoginForm
 from .models import User
 from django.contrib.auth import login
-from .forms import SignUpForm
 import requests
 
 def main_prelogin(request):
-    return render(request, 'main_prelogin.html')
+    return render(request, 'user/main_prelogin.html')
 
-def register_view(request):
+
+def signup(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.password = make_password(user.password)  # 비밀번호 암호화
+            user.password = make_password(user.password)
             user.save()
-            messages.success(request, "회원가입이 완료되었습니다!")
-            return redirect('users:login_view')
-        else:
-            messages.error(request, "회원가입 양식에 오류가 있습니다.")
+            messages.success(request, "회원가입이 완료되었습니다!")  
+            return redirect('users:login_view')  
     else:
         form = UserRegistrationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'user/signup.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -44,7 +43,7 @@ def login_view(request):
                 messages.error(request, "존재하지 않는 사용자입니다.")
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'user/login.html', {'form': form})
 
 def main_page(request):
     user_id = request.session.get('user_id')
@@ -59,9 +58,8 @@ def main_page(request):
     context = {
         'user': user
     }
-    return render(request, 'main.html', context)
+    return render(request, 'user/main.html', context)
 
-import requests
 
 def logout_view(request):
     # 카카오 로그아웃 처리
@@ -161,15 +159,4 @@ def generate_unique_nickname(base_nickname):
         counter += 1
 
     return unique_nickname
-
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)  
-            return redirect('home')  
-    else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
 

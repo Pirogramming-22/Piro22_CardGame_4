@@ -1,4 +1,5 @@
 from django.urls import path
+from board import views
 from . import views
 
 app_name = 'users'

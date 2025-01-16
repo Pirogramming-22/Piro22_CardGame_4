@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{%static 'css/board_ranking.css'%}">
+{% endblock head %}
+
+{% block main %}
+<div class="class_kes--main">
+    <h2>Piro 명예의 전당</h2>
+    <div class="class_kes--main-ranking">
+        {% for user in rankers %}
+        <div class="class_kes--main-ranking-item">
+            <p>{{user.id}}</p>
+            <p>{{user.score}}</p>
+            <div class="class_kes--rank">{{forloop.counter}}</div>
+        </div>
+        {% endfor %}
+        <div class="class_kes--main-ranking-item">
+            <p>user1</p>
+            <p>11</p>
+            <div class="class_kes--rank">1</div>
+        </div>
+        <div class="class_kes--main-ranking-item">
+            <p>user2</p>
+            <p>8</p>
+            <div class="class_kes--rank">2</div>
+        </div>
+        <div class="class_kes--main-ranking-item">
+            <p>user3</p>
+            <p>-1</p>
+            <div class="class_kes--rank">3</div>
+        </div>
+    </div>
+    <button class="class_kes--btn" onclick="window.location.href=''">전적목록</button>
+
+</div>
+{% endblock main %}

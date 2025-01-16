@@ -1,7 +1,7 @@
 from .models import Board
 import random
 from django.shortcuts import render, redirect
-from .models import User
+from .models import Card, User
 
 # Create your views here.
 def info(request, pk):
@@ -41,9 +41,9 @@ def ranking(request):
     
     return render(request, "board/ranking.html", ctx)
     
-   
+
 def attack_game(request):
-    random_numbers = random.sample(range(1, 11), 5) 
+    random_numbers = random.sample(range(1, 11), 5)
 
     if request.user.is_authenticated:
         # 기존 카드 삭제, 새로운 카드 5개 생성
@@ -53,20 +53,40 @@ def attack_game(request):
         # 생성된 카드들을 DB에서 가져오기
         cards = Card.objects.filter(owner=request.user)
     else:
-        cards = []  
+        cards = []
+    
     users = User.objects.exclude(id=request.user.id) if request.user.is_authenticated else User.objects.all()
-    return render(request, 'board/start_game.html', {'random_numbers': random_numbers, 'cards': cards, 'users': users})
+
+    return render(request, 'board/start_game.html', {
+        'random_numbers': random_numbers, 
+        'cards': cards, 
+        'users': users
+    })
 
 
 def attack(request):
     if request.method == "POST":
         attacker = request.user
         defender_id = request.POST.get('defender')
-        card_id = request.POST.get('card')
+        attacker_card_id = request.POST.get('attacker_card')  
+        defender_card_id = request.POST.get('defender_card')
+
 
         defender = User.objects.get(id=defender_id)
-        card = Card.objects.get(id=card_id)
-        Attack.objects.create(attacker=attacker, defender=defender, card=card)
-        return redirect('game_list')
+        attacker_card = Card.objects.get(id=attacker_card_id)
+        defender_card = Card.objects.get(id=defender_card_id) if defender_card_id else None
+
+
+        new_board = Board.objects.create(
+            attacker_id=attacker,
+            defender_id=defender,
+            attack_num=attacker_card.number,
+            defend_num=defender_card.number if defender_card else None,
+            attacker_card=attacker_card,
+            defender_card=defender_card,
+            status="진"  # 기본 상태는 진행중 
+        )
+
+        return redirect('game_list')  
 
     return redirect('attack_game')

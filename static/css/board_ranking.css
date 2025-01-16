@@ -1,0 +1,66 @@
+@import url(./root.css);
+
+.class_kes--main {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--purple);
+    width: 50dvw;
+    height: 90%;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    border-radius: 20px;
+    color: var(--orange);
+    padding: 100px;
+}
+.class_kes--main h2, .class_kes--main p {
+    margin: 0;
+}
+.class_kes--main > h2 {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--orange);
+
+}
+.class_kes--main-ranking {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: end;
+    margin-bottom: 50px;
+}
+.class_kes--main-ranking p {
+    text-align: center;
+}
+.class_kes--rank {
+    width: 100%;
+    height: 100px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
+.class_kes--main-ranking-item:nth-of-type(1) .class_kes--rank {
+    background-color: rgb(226 150 127);
+    height: 150px;
+  }
+  .class_kes--main-ranking-item:nth-of-type(2) .class_kes--rank {
+    background-color: rgb(229 173 128);
+    height: 120px;
+  }
+  .class_kes--main-ranking-item:nth-of-type(3) .class_kes--rank {
+    background-color: rgb(236 186 134);
+    height: 90px;
+  }
+
+.class_kes--btn {
+    width: 100px;
+    height: 30px;
+    background-color: var(--orange);
+    border: 0;
+    border-radius: 10px;
+}

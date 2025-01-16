@@ -18,12 +18,12 @@ class Board(models.Model):
     )
     
     howTowin = models.CharField("승리조건", choices=howTowinChoice, max_length=1)
-    attacker_id = models.ForeignKey(User, models.CASCADE, verbose_name="공격자 id")
+    attacker_id = models.ForeignKey(User, models.CASCADE, verbose_name="공격자 id", related_name="attacker_boards")
     attack_num = models.IntegerField("공격자 카드 숫자")
-    defender_id = models.ForeignKey(User, models.CASCADE, verbose_name="방어자 id")
+    defender_id = models.ForeignKey(User, models.CASCADE, verbose_name="방어자 id", related_name="defender_boards")
     defend_num = models.IntegerField("방어자 카드 숫자", null=True)
     status = models.CharField("상태", choices=statusChoice, default="진", max_length=1)
-    result = models.CharField("결과", choices=resultChoice, null=True)
+    result = models.CharField("결과", choices=resultChoice, max_length=1, null=True)
     created_at = models.DateTimeField("생성 일시", auto_now_add=True)
     
     

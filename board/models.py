@@ -4,19 +4,28 @@ from django.contrib.auth.models import User
 from users.models import User
 
 # Create your models here.
+#카드 번호와 소유자(owner) 속성, 각 게임에서 사용될 수 있는 독립적인 엔티티
+class Card(models.Model):
+    number = models.IntegerField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.number} (Owner: {self.owner.username})"
+
+
+# 그 다음에 Board 모델을 정의
 class Board(models.Model):
     howTowinChoice = (
         ('L', "Low"),
         ('H', "High")
     )
     statusChoice = (
-        ('진', "진행중"),   # 4-1 경우
-        # ('반', "반격가능"), # 4-2는 4-1과 같은 상태의 게임임. 공격자가 공격을 선언했고 방어자가 수락(반격,대응)하지 않은 상태
-        ('종', "종료")      # 4-3 경우
+        ('진', "진행중"),
+        ('종', "종료")
     )
     resultChoice = (
-        ('A', "Attacker"),  # 공격자가 승리
-        ('D', "Defender"),  # 방어자가 승리
+        ('A', "Attacker"),
+        ('D', "Defender"),
     )
     
     howTowin = models.CharField("승리조건", choices=howTowinChoice, max_length=1)
@@ -27,21 +36,13 @@ class Board(models.Model):
     status = models.CharField("상태", choices=statusChoice, default="진", max_length=1)
     result = models.CharField("결과", choices=resultChoice, max_length=1, null=True)
     created_at = models.DateTimeField("생성 일시", auto_now_add=True)
+
+    # 추가된 필드들
+    attacker_card_number = models.IntegerField("공격자 카드 번호", default=0)
+    defender_card_number = models.IntegerField("방어자 카드 번호", null=True)
     
-
-class Card(models.Model):
-    number = models.IntegerField()  
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)  
+    attacker_card = models.ForeignKey(Card, related_name="attacker_cards", on_delete=models.CASCADE, null=True)
+    defender_card = models.ForeignKey(Card, related_name="defender_cards", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"{self.number} (Owner: {self.owner.username})"
-
-class Attack(models.Model):
-    attacker = models.ForeignKey(User, related_name='attacker', on_delete=models.CASCADE)
-    defender = models.ForeignKey(User, related_name='defender', on_delete=models.CASCADE)
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)  
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.attacker} attacks {self.defender} with card {self.card.number}"
-
+        return f"Board {self.id}: {self.attacker_id.username} vs {self.defender_id.username}"

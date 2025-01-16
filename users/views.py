@@ -5,6 +5,8 @@ from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from .forms import UserRegistrationForm, LoginForm
 from .models import User
+from django.contrib.auth import login
+from .forms import SignUpForm
 import requests
 
 def main_prelogin(request):
@@ -159,3 +161,15 @@ def generate_unique_nickname(base_nickname):
         counter += 1
 
     return unique_nickname
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  
+            return redirect('home')  
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
+

@@ -1,5 +1,6 @@
 from django import forms
 from .models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
@@ -25,3 +26,12 @@ class UserRegistrationForm(forms.ModelForm):
 class LoginForm(forms.Form):
     id = forms.CharField(max_length=50, label="ID")
     password = forms.CharField(widget=forms.PasswordInput, label="비밀번호")
+
+
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+

@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+
 {% block head %}
 <link rel="stylesheet" href="{%static 'css/board_info.css'%}">
 {% endblock head %}
@@ -32,7 +35,7 @@
         {% comment %} 4-2상태 {% endcomment %}
         <button class="class_kes--btn" onclick="window.location.href='{% url 'board:반격' %}'">대응하기</button>
         {% endif %}
-        <button class="class_kes--btn" onclick="window.location.href='{% url 'board:전적' %}'">전체목록</button>
+        <button class="class_kes--btn" onclick="window.location.href='{% url 'board:전적' %}'">전적목록</button>
     </div>
 </div>
 {% endblock main %}

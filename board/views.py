@@ -31,5 +31,14 @@ def info(request, pk):
     }
     
     return render(request, 'board/info.html', ctx)
+
+def ranking(request):
+    rankers = User.objects.order_by('-score')[:3]
+    
+    ctx = {
+        "rankers": rankers,
+    }
+    
+    return render(request, "board/ranking.html", ctx)
     
     

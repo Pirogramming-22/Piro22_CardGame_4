@@ -4,7 +4,7 @@ from .models import User
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['id', 'password', 'email']
+        fields = ['id', 'password', 'email', 'nickname', 'login_type', ] 
         widgets = {
             'password': forms.PasswordInput(),  # 비밀번호 입력 필드
         }

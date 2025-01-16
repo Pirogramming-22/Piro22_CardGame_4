@@ -9,6 +9,10 @@
     <p>password: {{ user.password }}</p>
     <p>score: {{ user.score }}</p>
     <p>email: {{ user.email }}</p>
+    <p>nickname: {{ user.nickname }}</p>
+    <p>login_type: {{ user.login_type }}</p>
+
+    
     <form method="post" action="{% url 'users:logout_view' %}">
         {% csrf_token %}
         <button type="submit">로그아웃</button>

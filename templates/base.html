@@ -1,17 +1,30 @@
-{%load static%}
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {%block head%}
-    
-    {%endblock%}
-</head>
-<body>
-        {%block main%}
-    
-        {%endblock%}
+    <title>{% block title %}CardGame{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    </head>
+    <body>
+    <header class="header_ktr">
+        <nav>
+        <a href="" class="header_title_ktr">Pirogrammer Card Game</a>
+        <ul class="header_nav_ktr">
+            <li><a href="">게임하기</a></li>
+            <li><a href="">랭킹보기</a></li>
+            <li><a href="">로그아웃</a></li>
+        </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+    <footer class="footer_ktr">
+        <p>피로그래밍 22기 카드게임세션 4조</p>
+    </footer>
 </body>
 </html>

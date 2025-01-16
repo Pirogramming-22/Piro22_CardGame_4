@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{%static 'css/board_info.css'%}">
 {% endblock head %}
 
-{% block main %}
+{% block content %}
 <div class="class_kes--main">
     <div class="class_kes--main-gameinfo">
         <h2>{{board.id}} - {{board.attacker_id}} VS {{board.defender_id}}</h2>
@@ -38,4 +38,4 @@
         <button class="class_kes--btn" onclick="window.location.href='{% url 'board:전적' %}'">전적목록</button>
     </div>
 </div>
-{% endblock main %}
+{% endblock content %}

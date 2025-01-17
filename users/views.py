@@ -10,7 +10,7 @@ from django.conf import settings
 import requests
 
 def main_prelogin(request):
-    return render(request, 'user/main_prelogin.html')
+    return render(request, 'start_page/before_login.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -42,7 +42,7 @@ def login_view(request):
                 messages.error(request, "존재하지 않는 사용자입니다.")
     else:
         form = LoginForm()
-    return render(request, 'user/login.html', {'form': form})
+    return render(request, 'start_page/after_login.html', {'form': form})
 
 def main_page(request):
     user_id = request.session.get('user_id')
@@ -211,7 +211,7 @@ def kakao_callback(request):
     )
     request.session['user_id'] = user.id
 
-    return redirect('users:main_page')
+    return redirect('users:login_view')
 
 # 네이버 로그인
 def naver_login(request):
@@ -275,7 +275,7 @@ def naver_callback(request):
     request.session['user_id'] = user.id
     request.session['naver_access_token'] = access_token  # 액세스 토큰 저장
 
-    return redirect('users:main_page')
+    return redirect('users:login_view')
 
 def google_login(request):
     google_auth_url = "https://accounts.google.com/o/oauth2/auth"
@@ -339,4 +339,4 @@ def google_callback(request):
     request.session['user_id'] = user.id
     request.session['google_email'] = email  # 이메일은 세션에 저장
     messages.success(request, f"{user.nickname}님, 환영합니다!")
-    return redirect('users:main_page')
+    return redirect('users:login_view')

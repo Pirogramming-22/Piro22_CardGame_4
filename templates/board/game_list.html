@@ -1,5 +1,7 @@
-{% extends "base.html" %} {% block content %}
-<link rel="stylesheet" href="{% static 'start_game.css' %}" />
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/start_game.css' %}" />
 <div class="game-history-container">
   <h2 class="player-info">
     현재 플레이어: <span>{{ request.user.username }}</span>
@@ -25,12 +27,12 @@
             class="action-button"
             >CounterAttack</a
           >
-          {% endif %} {% elif game.status == '종' %} 결과: {% if game.result ==
+          {% endif %} {% if game.status == '종' %} 결과: {% elif game.result ==
           "A" and game.attacker_id == request.user %} 👑👑 승리 👑👑 {% elif
           game.result == "D" and game.defender_id == request.user %} 👑👑 승리
           👑👑 {% elif game.result == "A" and game.defender_id == request.user
           %} 😭 패배 😭 {% elif game.result == "D" and game.attacker_id ==
-          request.user %} 😭 패배 😭 {% else %} 무승부 {% endif %} {% endif %}
+          request.user %} 😭 패배 😭 {% else %} 무승부 {% endif %}
         </span>
       </div>
       <a href="{% url 'board:board_info' game.id %}" class="info-button"

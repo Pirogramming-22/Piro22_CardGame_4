@@ -47,10 +47,8 @@ def ranking(request):
 def attack_game(request):
     random_numbers = random.sample(range(1, 11), 5)
 
-    if request.user.is_authenticated:
-        cards = list(random_numbers)
-    else:
-        cards = []
+    cards = list(random_numbers)
+
     
     users = User.objects.exclude(id=request.user.id) if request.user.is_authenticated else User.objects.all()
 

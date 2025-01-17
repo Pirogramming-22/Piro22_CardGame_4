@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+# 🔥🔥4조 카드게임🔥🔥
+<br>
+
+## 팀 멤버⭐️
+◽김규일<br>
+◽김은성<br>
+◽김태린<br>
+◽박수연<br>
+◽박태희<br>
+=======
 # **Piro22_CardGame_4**
 
 
@@ -116,13 +127,13 @@ GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/google/callback/
 2. requirements.txt 실행
 pip install -r requirements.txt
 
-3. 마이그래이션 파일 생성
+3. .env 파일 root 디렉터리에 추가
+
+4. 마이그레이션 파일 생성
 python manage.py makemigrations
 
-4. 마이그래이션 파일 적용
+5. 마이그레이션 파일 적용
 python manage.py migrate
-
-5. .env 파일 root 디렉터리에 추가
 
 6. 서버 실행
 python manage.py runserver
@@ -138,3 +149,4 @@ requirements.txt에 포함된 라이브러리는 프로젝트 실행에 필요�
 
 운영 환경에서는 환경 변수 관리 도구를 사용하여 .env 파일 대신 보안적으로 관리하는 것을 권장합니다.
 
+>>>>>>> a0802bae424c7139d108b7f2edf35153cfd2e476

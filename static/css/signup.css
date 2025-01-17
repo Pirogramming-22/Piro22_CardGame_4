@@ -16,6 +16,14 @@ body {
     background-repeat: no-repeat;
 }
 
+.signup-section{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .signip_form_ktr {
     background-color: var(--white);
     padding: 20px;

@@ -13,21 +13,6 @@ body {
     height: 100vh;
 }
 
-.header_kgi, .footer_kgi {
-    background-color: var(--purple);
-    color: var(--orange);
-    width: 100%;
-    padding: 20px;
-    position: fixed;
-    left: 0;
-    z-index: 1000;
-}
-
-.header_kgi {
-    top: 0;
-}
-
-
 
 main {
     flex: 1;
@@ -36,6 +21,26 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.h1-container {
+    width: 350px;
+    border-radius: 10px;
+    height: 100px;
+    background-color: var(--orange);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid var(--purple); /* 세련된 테두리 추가 */
+    background-image: radial-gradient(circle at top left, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+}
+
+.h1-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 nav {
@@ -43,36 +48,6 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding-inline: 40px;
-}
-
-.header_nav_kgi {
-    display: flex; 
-    gap: 20px; 
-    list-style: none; 
-}
-
-.header_nav_kgi li a {
-    text-decoration: none;
-    color: var(--orange);
-    font-size: 1.1rem;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.header_nav_kgi li a:hover {
-    color: var(--white);
-}
-
-.header_title_kgi {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--orange);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.header-title_kgi:hover {
-    color: var(--white);
 }
 
 .social-login-btns-kgi {
@@ -94,7 +69,7 @@ nav {
 }
 
 form {
-    background-color: var(--white); 
+    background-color: var(--white);
     border: 2px solid var(--orange);
     border-radius: 10px;
     padding: 30px;
@@ -104,24 +79,24 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-form h1 {
-    text-align: center;
-    font-size: 1.5rem;
-    color: var(--purple);
-    margin-bottom: 20px;
+form:hover {
+    transform: translateY(-5px); /* 약간 위로 이동 */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 확대 */
 }
 
 form input[type="text"],
 form input[type="password"],
 form button {
-    width: 90%; 
+    width: 85%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid var(--purple); 
+    border: 1px solid var(--purple);
     border-radius: 5px;
     font-size: 1rem;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 form input[type="text"]:focus,
@@ -129,14 +104,11 @@ form input[type="password"]:focus {
     outline: none;
     border-color: var(--orange);
     box-shadow: 0px 0px 4px var(--orange);
+    transform: scale(1.02); /* 약간 확대 */
 }
 
 #id_id{
-    width: 92%;
-}
-
-#id_password{
-    width: 78%;
+    width: 100%;
 }
 
 form button {
@@ -150,34 +122,22 @@ form button {
 
 form button:hover {
     background-color: var(--orange);
-    transform: scale(1.05); 
+    transform: scale(1.05); /* 버튼 확대 */
 }
 
 form button:active {
-    transform: scale(0.95); 
+    transform: scale(0.95); /* 눌렀을 때 살짝 축소 */
 }
 
 form p {
     text-align: center;
     color: var(--purple);
     font-size: 0.9rem;
-    margin-top: 15px; 
+    margin-top: 15px;
+    transition: color 0.3s ease;
 }
 
-.footer_kgi {
-    bottom: 0;
-    text-align: right;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.footer_div_kig {
-    width: 275px;
-    margin-right: 40px; 
-}
-
-.footer_kgi {
-    bottom: 0;
-    text-align: right;
+form p a:hover {
+    color: var(--orange); /* 링크 강조 */
+    text-decoration: underline;
 }

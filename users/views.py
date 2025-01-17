@@ -58,7 +58,7 @@ def main_page(request):
     context = {
         'user': user
     }
-    return render(request, 'user/main.html', context)
+    return render(request, 'start_page/after_login.html', context)
 
 def generate_unique_nickname(base_nickname):
     unique_nickname = base_nickname
@@ -212,7 +212,7 @@ def kakao_callback(request):
     )
     request.session['user_id'] = user.id
 
-    return redirect('users:login_view')
+    return redirect('users:main_page')
 
 # 네이버 로그인
 def naver_login(request):
@@ -276,13 +276,13 @@ def naver_callback(request):
     request.session['user_id'] = user.id
     request.session['naver_access_token'] = access_token  # 액세스 토큰 저장
 
-    return redirect('users:login_view')
+    return redirect('users:main_page')
 
 def google_login(request):
     google_auth_url = "https://accounts.google.com/o/oauth2/auth"
     scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
 
-    # 항상 계정 선택 화면이 나타나도록 `prompt=select_account` 추가
+    # 항상 계정 선택 화면이 나타나도록 prompt=select_account 추가
     url = (
         f"{google_auth_url}?"
         f"response_type=code&"
@@ -340,4 +340,4 @@ def google_callback(request):
     request.session['user_id'] = user.id
     request.session['google_email'] = email  # 이메일은 세션에 저장
     messages.success(request, f"{user.nickname}님, 환영합니다!")
-    return redirect('users:login_view')
+    return redirect('users:main_page')

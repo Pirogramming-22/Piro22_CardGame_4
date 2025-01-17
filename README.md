@@ -70,3 +70,12 @@
 
 
 <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" width="40px" /> **Discord**
+
+
+
+pip install requests oauthlib
+pip install requests 
+
+
+id = 938005347696-4ngjjgfte6jtjopru3a7slg6sm893qd1.apps.googleusercontent.com
+pw = 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

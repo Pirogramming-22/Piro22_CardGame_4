@@ -7,6 +7,8 @@ urlpatterns = [
     path('attack/', views.attack, name='attack'),
     path('info/<int:pk>', views.info, name='board_info'), # 게임 정보 페이지
     path('ranking', views.ranking, name='board_ranking'), # 게임 정보 페이지
-    path('game_list/', views.game_list, name='game_list'),
+    path('game_list/', views.game_list, name='game_list'),  # 전적 목록 페이지
     path('counter_attack/<int:pk>/', views.counter_attack, name='counter_attack'),
+    
+    path('delete/<int:pk>', views.delete, name='board_delete'), # 게임 취소 API
 ]

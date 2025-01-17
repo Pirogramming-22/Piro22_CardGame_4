@@ -147,3 +147,12 @@ def counter_attack(request, pk):
 
     return render(request, 'board/counter_attack.html', {'game': game, 'defender_cards': defender_cards})
 
+
+def delete(request, pk):
+    if request.method == "POST":
+        board = Board.objects.get(id=pk)
+        board.delete()
+        return redirect("board:game_list")     # 전적목록으로 돌아가기
+        
+    
+    return redirect("board:game_list")

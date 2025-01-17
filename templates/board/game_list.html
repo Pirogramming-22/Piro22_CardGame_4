@@ -15,7 +15,7 @@
       <span class="game-status">
         {% if game.status == '진' and not game.defend_num %} 진행 중... {% if
         game.attacker_id == request.user %}
-        <a href="{% url 'board:cancel_game' game.id %}" class="action-button"
+        <a href="{% url 'board:board_delete' game.id %}" class="action-button"
           >게임 취소</a
         >
         {% elif game.defender_id == request.user %}

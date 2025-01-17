@@ -111,28 +111,43 @@ def counter_attack(request, pk):
         game.defend_num = int(request.POST.get('card'))
         game.status = "종"  # 게임 상태를 종료로 설정
 
-        # 게임 결과 계산
+        # 게임 결과 계산 및 게임 결과에 따른 유저 스코어 업데이트
+        attack_user = game.attacker_id
+        defend_user = game.defender_id
         if game.howTowin == "H":  # 높은 숫자가 승리
             if game.defend_num > game.attack_num:
                 game.result = "D"
+                attack_user.score -= game.attack_num
+                defend_user.score += game.defend_num
             elif game.defend_num < game.attack_num:
                 game.result = "A"
+                attack_user.score += game.attack_num
+                defend_user.score -= game.defend_num
             else:
-                game.result = "무"  # 무승부경우 None? 수정 필요
+                game.result = "무"
         else:  # 낮은 숫자가 승리
             if game.defend_num < game.attack_num:
                 game.result = "D"
+                attack_user.score -= game.attack_num
+                defend_user.score += game.defend_num
             elif game.defend_num > game.attack_num:
                 game.result = "A"
+                attack_user.score += game.attack_num
+                defend_user.score -= game.defend_num
             else:
-                game.result = "무"  # 무승부경우 None? 수정 필요
+                game.result = "무"
+                
 
         game.save()
+        attack_user.save()
+        defend_user.save()
         return redirect('board:board_info', pk=game.pk)
 
     # 1부터 10까지의 숫자 중 5개를 랜덤으로 선택하여 카드 목록 생성
     random_numbers = random.sample(range(1, 11), 5)
     defender_cards = list(random_numbers)
+    
+    print(defender_cards)
 
     return render(request, 'board/counter_attack.html', {'game': game, 'defender_cards': defender_cards})
 

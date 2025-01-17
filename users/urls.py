@@ -11,5 +11,8 @@ urlpatterns = [
     path('kakao/login/', views.kakao_login, name='kakao_login'),
     path('kakao/callback/', views.kakao_callback, name='kakao_callback'),
     path('signup/', views.signup, name='signup'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('naver/login/', views.naver_login, name='naver_login'),
+    path('naver/callback/', views.naver_callback, name='naver_callback'),
+    path('google/login/', views.google_login, name='google_login'),
+    path('google/callback/', views.google_callback, name='google_callback'),
 ]

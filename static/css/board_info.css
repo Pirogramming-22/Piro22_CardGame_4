@@ -1,8 +1,43 @@
 @import url(./root.css);
 
 .class_kes--main {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: var(--purple);
-    width: 60dvw;
+    width: 40dvw;
+    height: 50%;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    border-radius: 20px;
+    color: var(--orange);
+    padding: 60px;
+}
+.class_kes--main-gameinfo {
+    display: flex;
+    flex-direction: column;
+}
+.class_kes--main-gameinfo p {
+    border-top: 1px solid var(--orange);
+}
+
+.class_kes--main-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.class_kes--btn {
+    width: 100px;
+    height: 30px;
+    background-color: var(--orange);
+    border: 0;
+    border-radius: 10px;
+}
+p.class_kes--no-border {
+    border: none;
 }

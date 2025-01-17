@@ -1,22 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block head %}
-<link rel="stylesheet" href="{%static 'css/board_info.css'%}">
-{% endblock head %}
 
-{% block main %}
+{% block content %}
+<link rel="stylesheet" href="{%static 'css/board_info.css'%}">
 <div class="class_kes--main">
     <div class="class_kes--main-gameinfo">
-        <h2>{{board.id}} - {{board.attacker_id}} VS {{board.defender_id}}</h2>
+        <h2>{{board.id}} - {{board.attacker_id.id}} VS {{board.defender_id.id}}</h2>
         {% if board.status == "종" %}
         {% comment %} 4-3상태 {% endcomment %}
         <p>숫자가 {{board.howTowin}}한 사람이 이깁니다.</p>
-        <p>{{board.attacker_id}}: {{board.attack_num}}</p>
-        <p>{{board.defender_id}}: {{board.defend_num}}</p>
+        <p>{{board.attacker_id.id}}: {{board.attack_num}}</p>
+        <p class="class_kes--no-border">{{board.defender_id.id}}: {{board.defend_num}}</p>
         <p>결과: {{result}}</p>
-        <p>점수: {% if result == "패배" %}-{% endif %}{% if login_user.id == board.attacker_id %}{{board.attack_num}}{% else %}{{board.defend_num}}{% endif %}</p>
-        {% elif login_user.id == board.attacker_id %}
+        <p>점수: {% if result == "패배" %}-{% endif %}{% if login_user.id == board.attacker_id.id %}{{board.attack_num}}{% else %}{{board.defend_num}}{% endif %}</p>
+        {% elif login_user.id == board.attacker_id.id %}
         {% comment %} 4-1상태 {% endcomment %}
         <p>진행중...</p>
         <p>나: {{board.attack_num}}</p>
@@ -25,7 +23,7 @@
     <div class="class_kes--main-buttons">
         {% if board.status == "종" %}
         {% comment %} 4-3상태 {% endcomment %}
-        {% elif login_user.id == board.attacker_id %}
+        {% elif login_user.id == board.attacker_id.id %}
         {% comment %} 4-1상태 {% endcomment %}
         <form method="post" action="{% url 'board:게임취소' board.id %}" style="display: inline;">
             {% csrf_token %}
@@ -33,9 +31,9 @@
         </form>
         {% else %}
         {% comment %} 4-2상태 {% endcomment %}
-        <button class="class_kes--btn" onclick="window.location.href='{% url 'board:반격' %}'">대응하기</button>
+        <button class="class_kes--btn" onclick="window.location.href=''">대응하기</button>
         {% endif %}
-        <button class="class_kes--btn" onclick="window.location.href='{% url 'board:전적' %}'">전적목록</button>
+        <button class="class_kes--btn" onclick="window.location.href=''">전적목록</button>
     </div>
 </div>
-{% endblock main %}
+{% endblock content %}

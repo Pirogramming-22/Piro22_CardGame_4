@@ -13,4 +13,11 @@
     <a href="{% url 'users:signup' %}"><button>회원가입</button></a>
     {% endblock %}
 </body>
+{% comment %} {% if messages %}
+<script>
+    {% for message in messages %}
+    alert("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %} {% endcomment %}
 </html>

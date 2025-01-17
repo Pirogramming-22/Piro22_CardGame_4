@@ -6,28 +6,11 @@ from django.http import JsonResponse
 from .forms import UserRegistrationForm, LoginForm
 from .models import User
 from django.contrib.auth import login
+from django.conf import settings
 import requests
-
-
-# KAKAO
-KAKAO_CLIENT_ID = 'ebdda9bce68d2e8bb2fb42a35dd17fd6'
-KAKAO_CLIENT_SECRET = '8N6WQh6yHc'
-KAKAO_REDIRECT_URI = 'http://127.0.0.1:8000/kakao/callback'
-
-# NAVER
-NAVER_CLIENT_ID = 't2FznyKh_lwkMv8evxZB'
-NAVER_CLIENT_SECRET = '8N6WQh6yHc'
-NAVER_REDIRECT_URI = 'http://127.0.0.1:8000/naver/callback/'
-
-# Google OAuth 설정
-GOOGLE_CLIENT_ID = '938005347696-4ngjjgfte6jtjopru3a7slg6sm893qd1.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
-GOOGLE_REDIRECT_URI = 'http://127.0.0.1:8000/google/callback/'
-
 
 def main_prelogin(request):
     return render(request, 'user/main_prelogin.html')
-
 
 def signup(request):
     if request.method == 'POST':
@@ -41,7 +24,6 @@ def signup(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'user/signup.html', {'form': form})
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -152,8 +134,8 @@ def naver_logout(request):
         revoke_url = "https://nid.naver.com/oauth2.0/token"
         revoke_data = {
             'grant_type': 'delete',
-            'client_id': NAVER_CLIENT_ID,
-            'client_secret': NAVER_CLIENT_SECRET,
+            'client_id': settings.NAVER_CLIENT_ID,  # 환경 변수에서 가져옴
+            'client_secret': settings.NAVER_CLIENT_SECRET,  # 환경 변수에서 가져옴
             'access_token': access_token,
             'service_provider': 'NAVER',
         }
@@ -169,13 +151,15 @@ def naver_logout(request):
             messages.success(request, "네이버에서 로그아웃되었습니다.")
         else:
             messages.error(request, "네이버 로그아웃 중 오류가 발생했습니다.")
+    else:
+        messages.error(request, "네이버 로그아웃 토큰이 없습니다.")
 
-# 카카오 로그인인
+# 카카오 로그인
 def kakao_login(request):
     kakao_auth_url = (
         "https://kauth.kakao.com/oauth/authorize?"
-        "client_id=ebdda9bce68d2e8bb2fb42a35dd17fd6&"  # REST API 키를 넣으세요
-        "redirect_uri=http://127.0.0.1:8000/kakao/callback&"
+        f"client_id={settings.KAKAO_CLIENT_ID}&"
+        f"redirect_uri={settings.KAKAO_REDIRECT_URI}&"
         "response_type=code"
     )
     return redirect(kakao_auth_url)
@@ -189,8 +173,8 @@ def kakao_callback(request):
     token_url = "https://kauth.kakao.com/oauth/token"
     token_data = {
         'grant_type': 'authorization_code',
-        'client_id': 'ebdda9bce68d2e8bb2fb42a35dd17fd6',  # REST API 키
-        'redirect_uri': 'http://127.0.0.1:8000/kakao/callback',
+        'client_id': settings.KAKAO_CLIENT_ID,  # settings에서 가져온 값 사용
+        'redirect_uri': settings.KAKAO_REDIRECT_URI,
         'code': code,
     }
     token_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -229,11 +213,12 @@ def kakao_callback(request):
 
     return redirect('users:main_page')
 
+# 네이버 로그인
 def naver_login(request):
     naver_auth_url = (
         "https://nid.naver.com/oauth2.0/authorize?"
-        f"client_id={NAVER_CLIENT_ID}&"
-        f"redirect_uri={NAVER_REDIRECT_URI}&"
+        f"client_id={settings.NAVER_CLIENT_ID}&"
+        f"redirect_uri={settings.NAVER_REDIRECT_URI}&"
         "response_type=code"
     )
     return redirect(naver_auth_url)
@@ -250,9 +235,9 @@ def naver_callback(request):
 
     token_data = {
         'grant_type': 'authorization_code',
-        'client_id': NAVER_CLIENT_ID,
-        'client_secret': NAVER_CLIENT_SECRET,
-        'redirect_uri': NAVER_REDIRECT_URI,
+        'client_id': settings.NAVER_CLIENT_ID,
+        'client_secret': settings.NAVER_CLIENT_SECRET,
+        'redirect_uri': settings.NAVER_REDIRECT_URI,
         'code': code,
     }
 
@@ -292,16 +277,19 @@ def naver_callback(request):
 
     return redirect('users:main_page')
 
-
-
 def google_login(request):
     google_auth_url = "https://accounts.google.com/o/oauth2/auth"
     scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
-    redirect_uri = GOOGLE_REDIRECT_URI
-    client_id = GOOGLE_CLIENT_ID
 
     # 항상 계정 선택 화면이 나타나도록 `prompt=select_account` 추가
-    url = f"{google_auth_url}?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}&scope={scope}&prompt=select_account"
+    url = (
+        f"{google_auth_url}?"
+        f"response_type=code&"
+        f"client_id={settings.GOOGLE_CLIENT_ID}&"
+        f"redirect_uri={settings.GOOGLE_REDIRECT_URI}&"
+        f"scope={scope}&"
+        "prompt=select_account"
+    )
     return redirect(url)
 
 def google_callback(request):
@@ -309,17 +297,23 @@ def google_callback(request):
     token_url = "https://oauth2.googleapis.com/token"
     user_info_url = "https://www.googleapis.com/oauth2/v1/userinfo"
 
+    if not code:
+        return JsonResponse({'error': '인증 코드가 없습니다.'}, status=400)
+
     # Access Token 요청
     data = {
         'code': code,
-        'client_id': GOOGLE_CLIENT_ID,
-        'client_secret': GOOGLE_CLIENT_SECRET,
-        'redirect_uri': GOOGLE_REDIRECT_URI,
+        'client_id': settings.GOOGLE_CLIENT_ID,  # 환경 변수에서 값 가져오기
+        'client_secret': settings.GOOGLE_CLIENT_SECRET,  # 환경 변수에서 값 가져오기
+        'redirect_uri': settings.GOOGLE_REDIRECT_URI,
         'grant_type': 'authorization_code',
     }
     token_response = requests.post(token_url, data=data)
     token_json = token_response.json()
     access_token = token_json.get('access_token')
+
+    if not access_token:
+        return JsonResponse({'error': 'Access Token 요청 실패'}, status=400)
 
     # 사용자 정보 가져오기
     headers = {'Authorization': f'Bearer {access_token}'}
@@ -332,14 +326,17 @@ def google_callback(request):
     email = user_info.get('email')  # 세션에 저장하거나 로그에 사용할 수 있음
     g_id = f"g{google_id}"
 
-    # 사용자 생성 또는 로그인 처리 (email이 아닌 google_id로 처리)
-    user, created = User.objects.get_or_create(id=g_id, defaults={
-        'nickname': generate_unique_nickname(name),
-        'login_type': 'google',
-    })
+    # 사용자 생성 또는 로그인 처리
+    user, created = User.objects.get_or_create(
+        id=g_id,
+        defaults={
+            'nickname': generate_unique_nickname(name),
+            'login_type': 'google',
+        },
+    )
 
     # 세션에 사용자 정보 저장
     request.session['user_id'] = user.id
-    request.session['google_email'] = email  # 이메일은 세션에 저장 (선택 사항)
+    request.session['google_email'] = email  # 이메일은 세션에 저장
     messages.success(request, f"{user.nickname}님, 환영합니다!")
     return redirect('users:main_page')

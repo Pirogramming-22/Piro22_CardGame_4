@@ -127,3 +127,20 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from decouple import config
+
+# KAKAO
+KAKAO_CLIENT_ID = config('KAKAO_CLIENT_ID')
+KAKAO_CLIENT_SECRET = config('KAKAO_CLIENT_SECRET')
+KAKAO_REDIRECT_URI = config('KAKAO_REDIRECT_URI')
+
+# NAVER
+NAVER_CLIENT_ID = config('NAVER_CLIENT_ID')
+NAVER_CLIENT_SECRET = config('NAVER_CLIENT_SECRET')
+NAVER_REDIRECT_URI = config('NAVER_REDIRECT_URI')
+
+# GOOGLE
+GOOGLE_CLIENT_ID = config('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = config('GOOGLE_CLIENT_SECRET')
+GOOGLE_REDIRECT_URI = config('GOOGLE_REDIRECT_URI')

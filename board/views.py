@@ -8,8 +8,7 @@ from django.shortcuts import get_object_or_404
 def info(request, pk):
     board = Board.objects.get(id=pk)
     
-    #### TODO: 이 아래 pseudo_code 구현
-    login_user = User.objects.get(id=login_user_id)     # 로그인한 유저 정보 받아옴
+    login_user = request.user     # 로그인한 유저 정보 받아옴
     
     # 결과 계산
     result = ""

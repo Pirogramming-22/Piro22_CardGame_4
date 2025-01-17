@@ -211,6 +211,7 @@ def kakao_callback(request):
         },
     )
     request.session['user_id'] = user.id
+    login(request, user)
 
     return redirect('users:main_page')
 
@@ -275,6 +276,7 @@ def naver_callback(request):
     # 세션에 사용자 ID 및 액세스 토큰 저장
     request.session['user_id'] = user.id
     request.session['naver_access_token'] = access_token  # 액세스 토큰 저장
+    login(request, user)
 
     return redirect('users:main_page')
 
@@ -339,5 +341,6 @@ def google_callback(request):
     # 세션에 사용자 정보 저장
     request.session['user_id'] = user.id
     request.session['google_email'] = email  # 이메일은 세션에 저장
+    login(request, user)
     messages.success(request, f"{user.nickname}님, 환영합니다!")
     return redirect('users:main_page')

@@ -5,14 +5,15 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     flex-direction: column;
+    background-image: url("/static/images/back.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .signip_form_ktr {

@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['id', 'password', 'nickname', 'login_type', ] 
+        fields = ['id', 'password', 'nickname', ] 
         widgets = {
             'password': forms.PasswordInput(),  # 비밀번호 입력 필드
         }

@@ -8,7 +8,7 @@
     <div class="class_kes--main-ranking">
         {% for user in rankers %}
         <div class="class_kes--main-ranking-item">
-            <p>{{user.id}}</p>
+            <p>{{user.nickname}}</p>
             <p>{{user.score}}</p>
             <div class="class_kes--rank">{{forloop.counter}}</div>
         </div>

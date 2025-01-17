@@ -35,6 +35,7 @@ def login_view(request):
                 user = User.objects.get(id=user_id)
                 if check_password(password, user.password):
                     request.session['user_id'] = user.id 
+                    login(request, user)
                     return redirect('users:main_page')
                 else:
                     messages.error(request, "비밀번호가 일치하지 않습니다.")
@@ -42,7 +43,7 @@ def login_view(request):
                 messages.error(request, "존재하지 않는 사용자입니다.")
     else:
         form = LoginForm()
-    return render(request, 'start_page/after_login.html', {'form': form})
+    return render(request, 'user/login.html', {'form': form})
 
 def main_page(request):
     user_id = request.session.get('user_id')

@@ -146,6 +146,8 @@ def counter_attack(request, pk):
     # 1부터 10까지의 숫자 중 5개를 랜덤으로 선택하여 카드 목록 생성
     random_numbers = random.sample(range(1, 11), 5)
     defender_cards = list(random_numbers)
+    
+    print(defender_cards)
 
     return render(request, 'board/counter_attack.html', {'game': game, 'defender_cards': defender_cards})
 

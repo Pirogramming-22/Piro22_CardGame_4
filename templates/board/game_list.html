@@ -8,31 +8,27 @@
   <div class="game-list">
     {% for game in games_as_attacker %}
     <div class="game-item">
-      <div class="game-details">
-        <span class="game-id"
-          >{{ forloop.counter }} - {{ game.attacker_id.username }} VS {{
-          game.defender_id.username }}</span
+      <span class="game-id"
+        >{{ forloop.counter }} - {{ game.attacker_id.username }} VS {{
+        game.defender_id.username }}</span
+      >
+      <span class="game-status">
+        {% if game.status == '진' and not game.defend_num %} 진행 중... {% if
+        game.attacker_id == request.user %}
+        <a href="{% url 'board:cancel_game' game.id %}" class="action-button"
+          >게임 취소</a
         >
-        <span class="game-status">
-          {% if game.status == '진' and not game.defend_num %} 진행 중... {% if
-          game.attacker_id == request.user %}
-          <a href="{% url 'board:cancel_game' game.id %}" class="action-button"
-            >게임 취소</a
-          >
-          {% elif game.defender_id == request.user %}
-          <a
-            href="{% url 'board:counter_attack' game.id %}"
-            class="action-button"
-            >CounterAttack</a
-          >
-          {% endif %} {% if game.status == '종' %} 결과: {% elif game.result ==
-          "A" and game.attacker_id == request.user %} 👑👑 승리 👑👑 {% elif
-          game.result == "D" and game.defender_id == request.user %} 👑👑 승리
-          👑👑 {% elif game.result == "A" and game.defender_id == request.user
-          %} 😭 패배 😭 {% elif game.result == "D" and game.attacker_id ==
-          request.user %} 😭 패배 😭 {% else %} 무승부 {% endif %}
-        </span>
-      </div>
+        {% elif game.defender_id == request.user %}
+        <a href="{% url 'board:counter_attack' game.id %}" class="action-button"
+          >CounterAttack</a
+        >
+        {% endif %} {% if game.status == '종' %} 결과: {% elif game.result ==
+        "A" and game.attacker_id == request.user %} 👑👑 승리 👑👑 {% elif
+        game.result == "D" and game.defender_id == request.user %} 👑👑 승리
+        👑👑 {% elif game.result == "A" and game.defender_id == request.user %}
+        😭 패배 😭 {% elif game.result == "D" and game.attacker_id ==
+        request.user %} 😭 패배 😭 {% else %} 무승부 {% endif %}
+      </span>
       <a href="{% url 'board:board_info' game.id %}" class="info-button"
         >게임 정보</a
       >

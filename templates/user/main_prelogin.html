@@ -10,4 +10,11 @@
     <a href="{% url 'users:login_view' %}"><button>로그인</button></a>
     <a href="{% url 'users:signup' %}"><button>회원가입</button></a>
 </body>
+{% comment %} {% if messages %}
+<script>
+    {% for message in messages %}
+    alert("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %} {% endcomment %}
 </html>

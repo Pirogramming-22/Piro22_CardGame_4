@@ -70,3 +70,71 @@
 
 
 <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" width="40px" /> **Discord**
+
+---
+## env 파일 생성 설명
+
+프로젝트의 루트 디렉토리에 .env 파일을 생성합니다.
+(루트 디렉토리는 [manage.py](http://manage.py/) 파일이 있는 디렉토리입니다.)
+
+아래 내용을 .env 파일에 추가합니다:
+
+### Kakao API
+
+KAKAO_CLIENT_ID=카카오_클라이언트_ID
+
+KAKAO_CLIENT_SECRET=카카오_클라이언트_시크릿
+
+KAKAO_REDIRECT_URI=http://127.0.0.1:8000/kakao/callback
+
+### Naver API
+
+NAVER_CLIENT_ID=네이버_클라이언트_ID
+
+NAVER_CLIENT_SECRET=네이버_클라이언트_시크릿
+
+NAVER_REDIRECT_URI=http://127.0.0.1:8000/naver/callback/
+
+### Google API
+
+GOOGLE_CLIENT_ID=구글_클라이언트_ID
+
+GOOGLE_CLIENT_SECRET=구글_클라이언트_시크릿
+
+GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/google/callback/
+
+각 항목에 플랫폼에서 발급받은 실제 API 키와 시크릿 값을 입력합니다.
+
+---
+
+1. 가상환경을 활성화
+2. requirements.txt 실행
+
+```jsx
+1. 가상환경 활성화
+
+2. requirements.txt 실행
+pip install -r requirements.txt
+
+3. 마이그래이션 파일 생성
+python manage.py makemigrations
+
+4. 마이그래이션 파일 적용
+python manage.py migrate
+
+5. .env 파일 root 디렉터리에 추가
+
+6. 서버 실행
+python manage.py runserver
+```
+
+### 추가 참고 사항
+
+---
+
+.env 파일은 민감한 정보를 포함하고 있으므로 절대 깃허브에 업로드하지 않도록 합니다.
+
+requirements.txt에 포함된 라이브러리는 프로젝트 실행에 필요한 최소한의 패키지로 구성되어 있습니다.
+
+운영 환경에서는 환경 변수 관리 도구를 사용하여 .env 파일 대신 보안적으로 관리하는 것을 권장합니다.
+

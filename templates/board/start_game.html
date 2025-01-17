@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<div>
+  <div class="box">
+    <h1 class="title">내가 고른 카드:</h1>
+    <link rel="stylesheet" href="{% static 'start_game.css' %}" />
+    <form method="POST" action="{% url 'attack' %}">
+      {% csrf_token %}
+      <div class="card-list">
+        <ul>
+          {% for card in cards %}
+          <li class="num">
+            <input
+              type="radio"
+              name="card"
+              id="card{{ card.id }}"
+              value="{{ card.id }}"
+              required
+            />
+            <label for="card{{ card.id }}">{{ card.number }}</label>
+          </li>
+          {% empty %}
+          <li>No cards available</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="select-row">
+        <label class="defender" for="defender">Defender:</label>
+        <select name="defender" id="defender" required>
+          <option value="" disabled selected>------</option>
+          {% for user in users %}
+          <option value="{{ user.id }}">{{ user.username }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit">Attack</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

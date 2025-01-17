@@ -127,13 +127,13 @@ GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/google/callback/
 2. requirements.txt 실행
 pip install -r requirements.txt
 
-3. 마이그래이션 파일 생성
+3. .env 파일 root 디렉터리에 추가
+
+4. 마이그레이션 파일 생성
 python manage.py makemigrations
 
-4. 마이그래이션 파일 적용
+5. 마이그레이션 파일 적용
 python manage.py migrate
-
-5. .env 파일 root 디렉터리에 추가
 
 6. 서버 실행
 python manage.py runserver

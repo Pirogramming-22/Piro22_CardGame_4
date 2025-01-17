@@ -13,7 +13,7 @@
         <p>{{board.attacker_id.nickname}}: {{board.attack_num}}</p>
         <p class="class_kes--no-border">{{board.defender_id.nickname}}: {{board.defend_num}}</p>
         <p>결과: {{result}}</p>
-        <p>점수: {% if result == "패배" %}-{% endif %}{% if login_user.id == board.attacker_id.id %}{{board.attack_num}}{% else %}{{board.defend_num}}{% endif %}</p>
+        <p>점수: {% if result == "무승부" %}0{% else %}{% if result == "패배" %}-{% endif %}{% if login_user.id == board.attacker_id.id %}{{board.attack_num}}{% else %}{{board.defend_num}}{% endif %}{% endif %}</p>
         {% elif login_user.id == board.attacker_id.id %}
         {% comment %} 4-1상태 {% endcomment %}
         <p>진행중...</p>

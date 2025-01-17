@@ -13,18 +13,22 @@ def info(request, pk):
     
     # 결과 계산
     result = ""
-    if login_user.id == board.attacker_id:
+    if login_user.id == board.attacker_id.id:
         # 유저가 공격자일 때
         if board.result == "A":
             result = "승리"
-        else:
+        elif board.result == "D":
             result = "패배"
+        else:
+            result = "무승부"
     else:
         # 유저가 방어자일 때
         if board.result == "A":
             result = "패배"
-        else:
+        elif board.result == "D":
             result = "승리"
+        else:
+            result = "무승부"
     
     ctx = {
         'board': board,

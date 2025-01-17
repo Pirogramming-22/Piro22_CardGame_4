@@ -14,7 +14,7 @@
         </div>
         {% endfor %}
     </div>
-    <button class="class_kes--btn" onclick="window.location.href=''">전적목록</button>
+    <button class="class_kes--btn" onclick="window.location.href='{% url "board:game_list" %}'">전적목록</button>
 
 </div>
 {% endblock content %}

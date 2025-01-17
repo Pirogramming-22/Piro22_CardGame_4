@@ -2,13 +2,13 @@
 <link rel="stylesheet" href="{% static 'css/game_list.css' %}" />
 <div class="game-history-container">
   <h2 class="player-info">
-    현재 플레이어: <span>{{ request.user.id }}</span>
+    현재 플레이어: <span>{{ request.user.nickname }}</span>
   </h2>
 
   <div class="game-list">
     {% for game in games_as_attacker %}
     <div class="game-item">
-      <span class="game-id">{{ forloop.counter }} - {{ game.attacker_id.id }} VS {{game.defender_id.id }}</span>
+      <span class="game-id">{{ forloop.counter }} - {{ game.attacker_id.nickname }} VS {{game.defender_id.nickname }}</span>
       <span class="game-status">
         {% if game.status == '진' and not game.defend_num %} 진행 중... 
           {% if game.attacker_id == request.user %}

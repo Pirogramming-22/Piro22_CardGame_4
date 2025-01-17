@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %} 
+
+{% block title %}
+    로그인 - Piro Game
+{% endblock title %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/after_login.css' %}">
+    <div class="loginafter_container_psy">
+        <h1 class="game_title_psy">Piro Game</h1>
+        <p class="user_status_psy">{{ user.nickname }}님이 로그인 중</p>
+        <div class="button_psy">
+            <a href="{% url 'board:attack_game' %}" class="start_btn_psy">start</a>
+            <a href="{% url 'board:game_list' %}" class="list_btn_psy">list</a>
+        </div>
+    </div>
+{% endblock content %}

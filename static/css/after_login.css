@@ -1,0 +1,56 @@
+:root {
+    --purple: #62356D;
+    --orange: #F38862;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.loginafter_container_psy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 76vh;
+    text-align: center;
+}
+
+.game_title_psy {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: var(--purple);
+    height: 10%;
+}
+
+.user_status_psy {
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: var(--purple);
+}
+
+.button_psy {
+    display: flex;
+    gap: 15px;
+}
+
+.start_btn_psy,
+.list_btn_psy {
+    display: inline-block;
+    padding: 8px 18px;
+    font-size: 1.2rem;
+    color: var(--white);
+    text-decoration: none;
+    background-color: var(--purple);
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.start_btn_psy:hover,
+.list_btn_psy:hover {
+    background-color: #8a4d8b;
+}

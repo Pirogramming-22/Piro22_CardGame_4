@@ -9,7 +9,7 @@
         <h2>{{board.id}} - {{board.attacker_id.nickname}} VS {{board.defender_id.nickname}}</h2>
         {% if board.status == "종" %}
         {% comment %} 4-3상태 {% endcomment %}
-        <p>숫자가 {{board.howTowin}}한 사람이 이깁니다.</p>
+        <p>숫자가 {% if board.howTowin == "L" %}낮은{% else %}높은{% endif %} 사람이 이깁니다.</p>
         <p>{{board.attacker_id.nickname}}: {{board.attack_num}}</p>
         <p class="class_kes--no-border">{{board.defender_id.nickname}}: {{board.defend_num}}</p>
         <p>결과: {{result}}</p>

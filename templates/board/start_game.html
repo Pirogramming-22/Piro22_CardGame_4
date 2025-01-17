@@ -2,8 +2,8 @@
 <div>
   <div class="box">
     <h1 class="title">내가 고른 카드:</h1>
-    <link rel="stylesheet" href="{% static 'start_game.css' %}" />
-    <form method="POST" action="{% url 'attack' %}">
+    <link rel="stylesheet" href="{% static 'css/start_game.css' %}" />
+    <form method="POST" action="{% url 'board:attack' %}">
       {% csrf_token %}
       <div class="card-list">
         <ul>

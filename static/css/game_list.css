@@ -5,6 +5,8 @@
 }
 .game-history-container {
     padding: 50px;
+    display: flex;
+    width: 80%;
   }
   
   .player-info {
@@ -24,13 +26,6 @@
     border-radius: 8px;
     font-size: 1em;
   }
-  
-  .game-details {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
   .game-id {
     font-weight: bold;
     color: var(--purple);

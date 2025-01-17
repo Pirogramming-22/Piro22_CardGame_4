@@ -160,3 +160,9 @@ def delete(request, pk):
         
     
     return redirect("board:game_list")
+
+@login_required
+def board_delete(request, game_id):
+    game = get_object_or_404(Board, id=game_id)
+    game.delete()
+    return redirect('board:game_list') 

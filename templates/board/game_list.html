@@ -1,7 +1,5 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/start_game.css' %}" />
+{% extends "base.html" %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/game_list.css' %}" />
 <div class="game-history-container">
   <h2 class="player-info">
     현재 플레이어: <span>{{ request.user.username }}</span>

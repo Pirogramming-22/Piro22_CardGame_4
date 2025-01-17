@@ -6,7 +6,10 @@
 .game-history-container {
     padding: 50px;
     display: flex;
+    flex-direction: column;
     width: 80%;
+    background-color: #f389627c;
+    border-radius: 10px;
   }
   
   .player-info {
@@ -14,11 +17,14 @@
     color: var(--purple);
   }
   .game-list {
+    display: flex;
+    flex-direction: column;
     margin-top: 15px;
   }
   
   .game-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;

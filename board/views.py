@@ -3,6 +3,7 @@ import random
 from django.shortcuts import render, redirect
 from .models import User
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 # Create your views here.
 def info(request, pk):
@@ -89,12 +90,14 @@ from django.contrib.auth.decorators import login_required
 
 def game_list(request):
     user = request.user
-    games_as_attacker = Board.objects.filter(attacker_id=user)
-    games_as_defender = Board.objects.filter(defender_id=user)
+    # games_as_attacker = Board.objects.filter(attacker_id=user)
+    # games_as_defender = Board.objects.filter(defender_id=user)
+    game_as_join = Board.objects.filter( Q(attacker_id=user) | Q(defender_id=user) )
 
     context = {
-        'games_as_attacker': games_as_attacker,
-        'games_as_defender': games_as_defender,
+        # 'games_as_attacker': games_as_attacker,
+        # 'games_as_defender': games_as_defender,
+        'games_as_attacker' : game_as_join
     }
 
     return render(request, 'board/game_list.html', context)

@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 from users.models import User
 
@@ -10,7 +9,7 @@ class Card(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.number} (Owner: {self.owner.username})"
+        return f"{self.number} (Owner: {self.owner.id})"
 
 
 # 그 다음에 Board 모델을 정의
@@ -45,4 +44,4 @@ class Board(models.Model):
     defender_card = models.ForeignKey(Card, related_name="defender_cards", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"Board {self.id}: {self.attacker_id.username} vs {self.defender_id.username}"
+        return f"Board {self.id}: {self.attacker_id.id} vs {self.defender_id.id}"

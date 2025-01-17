@@ -12,11 +12,11 @@
             <input
               type="radio"
               name="card"
-              id="card{{ card.id }}"
-              value="{{ card.id }}"
+              id="card{{ card }}"
+              value="{{ card }}"
               required
             />
-            <label for="card{{ card.id }}">{{ card.number }}</label>
+            <label for="card{{ card }}">{{ card }}</label>
           </li>
           {% empty %}
           <li>No cards available</li>
@@ -29,7 +29,7 @@
         <select name="defender" id="defender" required>
           <option value="" disabled selected>------</option>
           {% for user in users %}
-          <option value="{{ user.id }}">{{ user.username }}</option>
+          <option value="{{ user.id }}">{{ user.id }}</option>
           {% endfor %}
         </select>
       </div>

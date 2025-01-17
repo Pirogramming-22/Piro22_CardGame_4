@@ -1,7 +1,7 @@
 from .models import Board
 import random
 from django.shortcuts import render, redirect
-from .models import Card, User
+from .models import User
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -47,12 +47,7 @@ def attack_game(request):
     random_numbers = random.sample(range(1, 11), 5)
 
     if request.user.is_authenticated:
-        # 기존 카드 삭제, 새로운 카드 5개 생성
-        Card.objects.filter(owner=request.user).delete()
-        for num in random_numbers:
-            Card.objects.create(number=num, owner=request.user)
-        # 생성된 카드들을 DB에서 가져오기
-        cards = Card.objects.filter(owner=request.user)
+        cards = list(random_numbers)
     else:
         cards = []
     
@@ -65,32 +60,29 @@ def attack_game(request):
     })
 
 
+######### attack전용view
 def attack(request):
     if request.method == "POST":
         attacker = request.user
+        print(type(attacker))
         defender_id = request.POST.get('defender')
-        attacker_card_id = request.POST.get('attacker_card')  
-        defender_card_id = request.POST.get('defender_card')
-
-
-        defender = User.objects.get(id=defender_id)
-        attacker_card = Card.objects.get(id=attacker_card_id)
-        defender_card = Card.objects.get(id=defender_card_id) if defender_card_id else None
+        
+        attack_number = int(request.POST.get('card'))
 
 
         Board.objects.create(
+            howTowin = random.choice(('L', 'H')),
             attacker_id=attacker,
-            defender_id=defender,
-            attack_num=attacker_card.number,
-            defend_num=defender_card.number if defender_card else None,
-            attacker_card=attacker_card,
-            defender_card=defender_card,
-            status="진"  # 기본 상태는 진행중 
+            attack_num=attack_number,
+            defender_id=User.objects.get(id=defender_id),
+            defend_num=None,
+            status="진",  # 기본 상태는 진행중
+            result = None
         )
 
-        return redirect('game_list')  
+        return redirect('board:game_list')  
 
-    return redirect('attack_game')
+    return redirect('board:attack_game')
 
 # 게임 전적 페이지
 from django.contrib.auth.decorators import login_required
@@ -115,11 +107,8 @@ def counter_attack(request, pk):
     defender = request.user
 
     if request.method == "POST":
-        defender_card_id = request.POST.get('defender_card')
-        defender_card = Card.objects.get(id=defender_card_id)
 
-        game.defend_num = defender_card.number
-        game.defender_card = defender_card
+        game.defend_num = int(request.POST.get('card'))
         game.status = "종"  # 게임 상태를 종료로 설정
 
         # 게임 결과 계산
@@ -129,21 +118,21 @@ def counter_attack(request, pk):
             elif game.defend_num < game.attack_num:
                 game.result = "A"
             else:
-                game.result = None  # 무승부경우 None? 수정 필요
+                game.result = "무"  # 무승부경우 None? 수정 필요
         else:  # 낮은 숫자가 승리
             if game.defend_num < game.attack_num:
                 game.result = "D"
             elif game.defend_num > game.attack_num:
                 game.result = "A"
             else:
-                game.result = None  # 무승부경우 None? 수정 필요
+                game.result = "무"  # 무승부경우 None? 수정 필요
 
         game.save()
         return redirect('board:board_info', pk=game.pk)
 
     # 1부터 10까지의 숫자 중 5개를 랜덤으로 선택하여 카드 목록 생성
     random_numbers = random.sample(range(1, 11), 5)
-    defender_cards = [Card.objects.create(number=num, owner=defender) for num in random_numbers]
+    defender_cards = list(random_numbers)
 
     return render(request, 'board/counter_attack.html', {'game': game, 'defender_cards': defender_cards})
 

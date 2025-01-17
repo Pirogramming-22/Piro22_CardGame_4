@@ -3,20 +3,14 @@ from django.db import models
 from users.models import User
 
 # Create your models here.
-#카드 번호와 소유자(owner) 속성, 각 게임에서 사용될 수 있는 독립적인 엔티티
-class Card(models.Model):
-    number = models.IntegerField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.number} (Owner: {self.owner.id})"
 
 
 # 그 다음에 Board 모델을 정의
 class Board(models.Model):
     howTowinChoice = (
         ('L', "Low"),
-        ('H', "High")
+        ('H', "High"),
+        ('무', "무승부"),
     )
     statusChoice = (
         ('진', "진행중"),
@@ -37,11 +31,11 @@ class Board(models.Model):
     created_at = models.DateTimeField("생성 일시", auto_now_add=True)
 
     # 추가된 필드들
-    attacker_card_number = models.IntegerField("공격자 카드 번호", default=0)
-    defender_card_number = models.IntegerField("방어자 카드 번호", null=True)
+    # attacker_card_number = models.IntegerField("공격자 카드 번호", default=0)   # == attack_num
+    # defender_card_number = models.IntegerField("방어자 카드 번호", null=True)   # == defend_num
     
-    attacker_card = models.ForeignKey(Card, related_name="attacker_cards", on_delete=models.CASCADE, null=True)
-    defender_card = models.ForeignKey(Card, related_name="defender_cards", on_delete=models.CASCADE, null=True)
+    # attacker_card = models.ForeignKey(Card, related_name="attacker_cards", on_delete=models.CASCADE, null=True)
+    # defender_card = models.ForeignKey(Card, related_name="defender_cards", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"Board {self.id}: {self.attacker_id.id} vs {self.defender_id.id}"

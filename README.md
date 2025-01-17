@@ -105,9 +105,6 @@ GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/google/callback/
 
 ---
 
-1. 가상환경을 활성화
-2. requirements.txt 실행
-
 ```jsx
 1. 가상환경 활성화
 

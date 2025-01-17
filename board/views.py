@@ -2,6 +2,7 @@ from .models import Board
 import random
 from django.shortcuts import render, redirect
 from .models import Card, User
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def info(request, pk):
@@ -78,7 +79,7 @@ def attack(request):
         defender_card = Card.objects.get(id=defender_card_id) if defender_card_id else None
 
 
-        new_board = Board.objects.create(
+        Board.objects.create(
             attacker_id=attacker,
             defender_id=defender,
             attack_num=attacker_card.number,
@@ -91,3 +92,59 @@ def attack(request):
         return redirect('game_list')  
 
     return redirect('attack_game')
+
+# 게임 전적 페이지
+from django.contrib.auth.decorators import login_required
+
+def game_list(request):
+    user = request.user
+    games_as_attacker = Board.objects.filter(attacker_id=user)
+    games_as_defender = Board.objects.filter(defender_id=user)
+
+    context = {
+        'games_as_attacker': games_as_attacker,
+        'games_as_defender': games_as_defender,
+    }
+
+    return render(request, 'board/game_list.html', context)
+
+
+# 반격하기 페이지
+@login_required
+def counter_attack(request, pk):
+    game = get_object_or_404(Board, pk=pk)
+    defender = request.user
+
+    if request.method == "POST":
+        defender_card_id = request.POST.get('defender_card')
+        defender_card = Card.objects.get(id=defender_card_id)
+
+        game.defend_num = defender_card.number
+        game.defender_card = defender_card
+        game.status = "종"  # 게임 상태를 종료로 설정
+
+        # 게임 결과 계산
+        if game.howTowin == "H":  # 높은 숫자가 승리
+            if game.defend_num > game.attack_num:
+                game.result = "D"
+            elif game.defend_num < game.attack_num:
+                game.result = "A"
+            else:
+                game.result = None  # 무승부경우 None? 수정 필요
+        else:  # 낮은 숫자가 승리
+            if game.defend_num < game.attack_num:
+                game.result = "D"
+            elif game.defend_num > game.attack_num:
+                game.result = "A"
+            else:
+                game.result = None  # 무승부경우 None? 수정 필요
+
+        game.save()
+        return redirect('board:board_info', pk=game.pk)
+
+    # 1부터 10까지의 숫자 중 5개를 랜덤으로 선택하여 카드 목록 생성
+    random_numbers = random.sample(range(1, 11), 5)
+    defender_cards = [Card.objects.create(number=num, owner=defender) for num in random_numbers]
+
+    return render(request, 'board/counter_attack.html', {'game': game, 'defender_cards': defender_cards})
+

@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,11 @@
     <title>메인 페이지 (로그인 전)</title>
 </head>
 <body>
+    {% block content %}
     <h1>환영합니다!</h1>
     <p>서비스를 이용하려면 로그인 또는 회원가입을 해주세요.</p>
     <a href="{% url 'users:login_view' %}"><button>로그인</button></a>
     <a href="{% url 'users:signup' %}"><button>회원가입</button></a>
+    {% endblock %}
 </body>
 </html>

@@ -1,16 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
+    {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
 </head>
 <body>
-    <h1>회원가입</h1>
-    <form method="post">
+    {% block content %}
+    <h1 class="signup_ktr">회원가입</h1>
+    <form method="post" class="signip_form_ktr">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">회원가입</button>
     </form>
+    {% endblock %}
 </body>
 </html>

@@ -1,0 +1,70 @@
+:root {
+    --purple: #62356D;
+    --orange: #F38862;
+    --white: #FFFFFF;
+}
+.box {
+    background-color: var(--purple); /* 박스 배경색 */
+    padding: 70px;
+    border-radius: 10px; /* 모서리를 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    max-width: 500px; /* 박스 최대 너비 */
+    width: 100%; /* 반응형으로 박스 너비 조정 */
+    text-align: left;
+  }
+  
+  .title {
+    text-align: left;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: var(--orange);
+  }
+  
+  .card-list {
+    border-bottom: 1px solid black; 
+    padding-bottom: 10px;
+    margin-bottom: 20px; 
+  }
+  
+  .num {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li.num {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  .select-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: var(--orange);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ec7144;
+  }

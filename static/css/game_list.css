@@ -1,0 +1,70 @@
+:root {
+    --purple: #62356D;
+    --orange: #F38862;
+    --white: #FFFFFF;
+}
+.game-history-container {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    background-color: #f389627c;
+    border-radius: 10px;
+  }
+  
+  .player-info {
+    text-decoration: underline;
+    color: var(--purple);
+  }
+  .game-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+  
+  .game-item {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 1em;
+  }
+  .game-id {
+    font-weight: bold;
+    color: var(--purple);
+    margin-bottom: 5px;
+  }
+  
+  .game-status {
+    color: black;
+  }
+  .cancel-action-button{
+    background-color: #ff9068;
+    color: var(--purple);
+    border-color: var(--purple);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.6em;
+    margin-left: 10px;
+  }
+  .action-button,
+  .info-button {
+    background-color: var(--purple);
+    color: var(--white);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-left: 10px;
+  }
+  
+  .action-button:hover,
+  .info-button:hover {
+    background-color: rgb(164, 57, 191);
+    color: #f1f1f1;
+  }
+  

@@ -1,0 +1,15 @@
+{% extends 'base_prelogin.html' %}
+
+{% load static %} 
+
+{% block title %}
+    로그인 - Piro Game
+{% endblock title %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/before_login.css' %}"> 
+    <div class="loginbefore_container_psy">
+        <h1 class="game_title_psy">Piro Game</h1>
+        <a href="{% url 'users:login_view' %}" class="start_btn_psy">start</a>
+    </div>
+{% endblock content %}

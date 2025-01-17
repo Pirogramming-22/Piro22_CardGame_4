@@ -1,0 +1,20 @@
+{% extends 'base_prelogin.html' %}
+
+{% load static %} 
+        
+{% block title %}
+회원가입
+{% endblock title %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<div class="signup-section">
+<h1 class="signup_ktr">회원가입</h1>
+<form method="post" class="signip_form_ktr">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">회원가입</button>
+</form>
+</div>
+{% endblock %}

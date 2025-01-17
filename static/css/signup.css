@@ -1,0 +1,72 @@
+:root {
+    --purple: #62356D;
+    --orange: #F38862;
+    --white: #FFFFFF;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    background-image: url("/static/images/back.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.signup-section{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.signip_form_ktr {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.signup_ktr {
+    text-align: center;
+    color: var(--purple);
+    margin-bottom: 20px; 
+}
+
+label {
+    color: var(--orange);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    background-color: var(--purple);
+    color: var(--orange);
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    cursor: pointer;
+}

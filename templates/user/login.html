@@ -1,0 +1,34 @@
+{% extends 'base_prelogin.html' %}
+
+{% load static %} 
+
+{% block title %}
+로그인
+{% endblock title %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <div class="h1-container">
+    <h1>로그인</h1>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">로그인</button>
+        <p>계정이 없으신가요? <a href="{% url 'users:signup' %}">회원가입</a></p>
+    </form>
+    <div class="social-login-btns-kgi">
+        <a href="{% url 'users:kakao_login' %}">
+            <img src="{% static 'imgs/kakao_login_btn_resized.png' %}" alt="카카오 로그인 버튼">
+        </a>
+        <a href="{% url 'users:naver_login' %}">
+            <img src="{% static 'imgs/naver_login_btn_resized.png' %}" alt="네이버 로그인 버튼">
+        </a>
+        <a href="{% url 'users:google_login' %}">
+            <img src="{% static 'imgs/google_login_btn.png' %}" alt="구글 로그인 버튼">
+        </a>
+    </div>
+{% endblock content %}
+

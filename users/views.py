@@ -8,6 +8,13 @@ from .models import User
 from django.contrib.auth import login
 import requests
 
+
+# KAKAO
+KAKAO_CLIENT_ID = 'ebdda9bce68d2e8bb2fb42a35dd17fd6'
+KAKAO_CLIENT_SECRET = '8N6WQh6yHc'
+KAKAO_REDIRECT_URI = 'http://127.0.0.1:8000/kakao/callback'
+
+# NAVER
 NAVER_CLIENT_ID = 't2FznyKh_lwkMv8evxZB'
 NAVER_CLIENT_SECRET = '8N6WQh6yHc'
 NAVER_REDIRECT_URI = 'http://127.0.0.1:8000/naver/callback/'
@@ -90,8 +97,8 @@ def logout_view(request):
     # 네이버 로그아웃 처리
     if 'naver_access_token' in request.session:
         print("네이버 로그아웃 진입")
-        naver_logout(request)
-        return redirect("https://nid.naver.com/nidlogin.logout") 
+        naver_logout(request)  # 네이버 토큰 삭제
+        return redirect('users:main_prelogin')  # 로그인 전 메인 페이지로 이동
 
     # Google 로그아웃 처리
     if 'google_access_token' in request.session:
@@ -162,8 +169,6 @@ def naver_logout(request):
             messages.success(request, "네이버에서 로그아웃되었습니다.")
         else:
             messages.error(request, "네이버 로그아웃 중 오류가 발생했습니다.")
-
-    return redirect('users:main_prelogin')
 
 # 카카오 로그인인
 def kakao_login(request):
@@ -236,10 +241,13 @@ def naver_login(request):
 def naver_callback(request):
     code = request.GET.get('code')
     state = request.GET.get('state')
+
     if not code:
         return JsonResponse({'error': '인증 코드가 없습니다.'}, status=400)
 
+    # 네이버 토큰 요청 URL
     token_url = "https://nid.naver.com/oauth2.0/token"
+
     token_data = {
         'grant_type': 'authorization_code',
         'client_id': NAVER_CLIENT_ID,
@@ -262,7 +270,6 @@ def naver_callback(request):
     user_info_json = user_info_response.json()
 
     naver_id = user_info_json.get('response', {}).get('id')
-    naver_email = user_info_json.get('response', {}).get('email')
     naver_name = user_info_json.get('response', {}).get('name')
     unique_nickname = generate_unique_nickname(naver_name)
 
@@ -272,14 +279,19 @@ def naver_callback(request):
 
     # 사용자 저장 또는 업데이트
     user, created = User.objects.update_or_create(
-        id=f"n{naver_id}",  # 네이버 ID에 'n' 접두사 추가
+        id=f"n{naver_id}",
         defaults={
             'nickname': unique_nickname,
             'login_type': 'naver',
         },
     )
+
+    # 세션에 사용자 ID 및 액세스 토큰 저장
     request.session['user_id'] = user.id
+    request.session['naver_access_token'] = access_token  # 액세스 토큰 저장
+
     return redirect('users:main_page')
+
 
 
 def google_login(request):

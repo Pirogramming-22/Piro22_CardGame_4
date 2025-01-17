@@ -4,6 +4,8 @@ class User(models.Model):
     LOGIN_CHOICES = (
         ('general', '일반 로그인'),
         ('kakao', '카카오 로그인'),
+        ('naver', '네이버 로그인'),
+
     )
 
     id = models.CharField(max_length=50, primary_key=True, unique=True)  # 공통 ID (카카오 ID 또는 일반 사용자 ID)

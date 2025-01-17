@@ -10,7 +10,6 @@ class Board(models.Model):
     howTowinChoice = (
         ('L', "Low"),
         ('H', "High"),
-        ('무', "무승부"),
     )
     statusChoice = (
         ('진', "진행중"),
@@ -19,6 +18,7 @@ class Board(models.Model):
     resultChoice = (
         ('A', "Attacker"),
         ('D', "Defender"),
+        ('무', "무승부"),
     )
     
     howTowin = models.CharField("승리조건", choices=howTowinChoice, max_length=1)

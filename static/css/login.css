@@ -1,0 +1,183 @@
+:root {
+    --purple: #62356D;
+    --orange: #F38862;
+    --white: #FFFFFF;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.header_kgi, .footer_kgi {
+    background-color: var(--purple);
+    color: var(--orange);
+    width: 100%;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    z-index: 1000;
+}
+
+.header_kgi {
+    top: 0;
+}
+
+
+
+main {
+    flex: 1;
+    padding-top: 80px; 
+    padding-bottom: 60px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 40px;
+}
+
+.header_nav_kgi {
+    display: flex; 
+    gap: 20px; 
+    list-style: none; 
+}
+
+.header_nav_kgi li a {
+    text-decoration: none;
+    color: var(--orange);
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header_nav_kgi li a:hover {
+    color: var(--white);
+}
+
+.header_title_kgi {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--orange);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.header-title_kgi:hover {
+    color: var(--white);
+}
+
+.social-login-btns-kgi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-login-btns-kgi img {
+    width: 280px;
+    height: 45px;
+    margin: 10px;
+    transition: transform 0.3s ease, filter 0.3s ease; 
+}
+
+.social-login-btns-kgi img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+form {
+    background-color: var(--white); 
+    border: 2px solid var(--orange);
+    border-radius: 10px;
+    padding: 30px;
+    width: 350px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 90px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--purple);
+    margin-bottom: 20px;
+}
+
+form input[type="text"],
+form input[type="password"],
+form button {
+    width: 90%; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--purple); 
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    outline: none;
+    border-color: var(--orange);
+    box-shadow: 0px 0px 4px var(--orange);
+}
+
+#id_id{
+    width: 92%;
+}
+
+#id_password{
+    width: 78%;
+}
+
+form button {
+    background-color: var(--purple);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: var(--orange);
+    transform: scale(1.05); 
+}
+
+form button:active {
+    transform: scale(0.95); 
+}
+
+form p {
+    text-align: center;
+    color: var(--purple);
+    font-size: 0.9rem;
+    margin-top: 15px; 
+}
+
+.footer_kgi {
+    bottom: 0;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footer_div_kig {
+    width: 275px;
+    margin-right: 40px; 
+}
+
+.footer_kgi {
+    bottom: 0;
+    text-align: right;
+}
